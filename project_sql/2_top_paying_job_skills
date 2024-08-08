@@ -6,33 +6,31 @@ Question: What skills are required for the top-paying roles?
     helping job seekers understand which skills to develop that align with top salaries
 */
 
-WITH top_paying_jobs AS (
-    SELECT 
+WITH top10_paying_jobs AS (
+    SELECT	
         job_id,
         job_title,
         name AS company_name,
+        job_location,
         salary_year_avg
-    FROM
-        job_postings_fact
-    LEFT JOIN
-        company_dim ON job_postings_fact.company_id = company_dim.company_id
+    FROM job_postings_fact
+    LEFT JOIN company_dim ON job_postings_fact.company_id = company_dim.company_id
     WHERE
         job_title_short = 'Data Analyst' AND 
-        --job_location = 'Anywhere' AND
-        job_location = 'Tampa, FL' AND    
+        (job_location = 'Tampa, FL' OR
+        job_location = 'Anywhere') AND
         salary_year_avg IS NOT NULL
-    ORDER BY
-        salary_year_avg DESC
-    --LIMIT 10
+    ORDER BY salary_year_avg DESC
+    LIMIT 10
 )
-SELECT
-    top_paying_jobs.*,
-    skills
-FROM
-    top_paying_jobs
-INNER JOIN 
-    skills_job_dim AS skills_job ON top_paying_jobs.job_id = skills_job.job_id
-INNER JOIN
-    skills_dim AS skills ON skills_job.skill_id = skills.skill_id
-ORDER BY 
-    salary_year_avg DESC
+
+SELECT 
+    top10_paying_jobs.job_id,
+    top10_paying_jobs.job_title,
+    top10_paying_jobs.salary_year_avg,
+    skills,
+    COUNT(skills_dim.skills) OVER (PARTITION BY skills_dim.skills) AS skill_count
+FROM top10_paying_jobs
+INNER JOIN skills_job_dim ON top10_paying_jobs.job_id = skills_job_dim.job_id
+INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
+ORDER BY skill_count DESC;
