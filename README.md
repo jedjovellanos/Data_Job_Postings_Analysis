@@ -80,7 +80,7 @@ INNER JOIN skills_dim ON skills_job_dim.skill_id = skills_dim.skill_id
 ORDER BY skill_count DESC;
 ```
 ![Top Paying Skills](assets/skill_count_graph.png) 
-*Bar graph depicting the skills that appear more than three times within the job results from the first query.*
+*Bar graph depicting the skills that appear more than three times within the job results from the first query*
 
 Insights from query results:
 - **SQL** is the most demanded skill for top-paying data-related roles, appearing 7 times in the top 10 highest paying jobs
@@ -112,7 +112,8 @@ LIMIT 5;
 | Python  | 4692         |
 | Tableau | 4080         |
 | Power BI| 2845         |   
-*Table showcasing demand for the top 5 skills in data analyst job postings.*  
+
+*Table showcasing demand for the top 5 skills in data analyst job postings*  
       
 Insights from query results:   
 - These results are more in line with what I would expect for data analyst roles
@@ -149,6 +150,8 @@ LIMIT 10;
 | Jupyter       | 152,777        |
 | Elasticsearch | 145,000        |
 | Golang        | 145,000        |
+
+*Table showcasing the top 10 skills by average salary*   
 
 Insights from query results:
 - **High-Demand Data Technologies**:  Skills in **PySpark**, **Bitbucket**, and **Couchbase** command the highest average salaries, indicating strong market demand for expertise in **big data processing**, **version control**, and **NoSQL database management**.
@@ -190,6 +193,7 @@ LIMIT 10;
 | AWS          | 32           | 108,317        |
 | Java         | 21           | 105,591        |
 
+*Table showcasing the top 10 skills by Average Salary and Demand*
 
 Insights from query results:   
 - **Data Manipulation and Big Data Tools** - **Pandas** and **Databricks** are among the top-paying skills, highlighting their significant value in data manipulation and big data analytics. As data complexity increases, expertise in these tools is expected to remain highly sought after and well-compensated
